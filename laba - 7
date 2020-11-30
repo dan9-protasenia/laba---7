@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char* tmp;
+    char stroka[200];
+    char mas[20][20];
+    char slovo[40];
+    char zamena[40];
+    int i, word_count = 0;
+
+    printf("Enter string: ");
+    gets_s(stroka);
+    printf("Enter word to change:");
+    gets_s(slovo);
+    printf("Enter word for change:");
+    gets_s(zamena);
+
+    tmp = strtok(stroka, " ,");
+    for (i = 0; tmp != '\0'; i++)
+    {
+        strcpy(mas[i], tmp);
+        tmp = strtok(NULL, ", ");
+        word_count++;
+    }
+    for (i = 0; i < word_count; i++)
+    {
+        if (strcmp(mas[i], slovo) == NULL)
+            strcpy(mas[i], zamena);
+    }
+    for (i = 0; i < word_count; i++)
+        printf("%s ", mas[i]);
+}
