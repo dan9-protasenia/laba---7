@@ -1,34 +1,39 @@
 #include <stdio.h>
-#include <string.h>
 
-int main()
+int main(void)
 {
-    char* tmp;
-    char stroka[200];
-    char mas[20][20];
-    char slovo[40];
-    char zamena[40];
-    int i, word_count = 0;
-
-    printf("Enter string: ");
-    gets_s(stroka);
-    printf("Enter word to change:");
-    gets_s(slovo);
-    printf("Enter word for change:");
-    gets_s(zamena);
-
-    tmp = strtok(stroka, " ,");
-    for (i = 0; tmp != '\0'; i++)
+    char line[100];
+    int i = 0;
+    int start;
+    int counting = 0;
+    int max = 0;
+    printf(" Enter the string :");
+    gets_s(line);
+    printf(" String without long word :");
+    while (line[i] != '\0')                                         // поиск максимальной длины слова и его начала
     {
-        strcpy(mas[i], tmp);
-        tmp = strtok(NULL, ", ");
-        word_count++;
+        if ((line[i] != ' ') && (line[i] != '.') && (line[i] != ','))
+        {
+            counting++;
+            if (counting > max)
+            {
+                
+                max = counting;
+                start = i - max + 1;
+
+            }
+        }
+        else
+            counting = 0;
+        i++;
     }
-    for (i = 0; i < word_count; i++)
+    
+    i = start;
+    while (i < (100 - max))                             //перезапись
     {
-        if (strcmp(mas[i], slovo) == NULL)
-            strcpy(mas[i], zamena);
+        line[i] = line[i + max];
+        i++;
     }
-    for (i = 0; i < word_count; i++)
-        printf("%s ", mas[i]);
+    puts(line);
+    return 0;
 }
